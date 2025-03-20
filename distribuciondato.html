@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distribución de Dado</title>
+    <style>
+        .bar {
+            fill: lightgray;
+            stroke: black;
+            stroke-width: 1;
+        }
+    </style>
+</head>
+<body>
+    <h2>Distribución de Dado</h2>
+    <p>
+        <button id="rollDice">
+            <img id="diceImage" src="img/dados/1.svg" alt="Dado" width="100">
+        </button>
+    </p>
+    <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
+         width="300" height="320" viewBox="-20 -140 150 160" style="font-size: 10px; border: black 1px solid;">
+        <line x1="-10" y1="1" x2="125" y2="1" stroke="black" stroke-width="2" />
+        <line x1="-1" y1="10" x2="-1" y2="-130" stroke="black" stroke-width="2" />
+        <text x="10" y="15" text-anchor="middle">1</text>
+        <text x="30" y="15" text-anchor="middle">2</text>
+        <text x="50" y="15" text-anchor="middle">3</text>
+        <text x="70" y="15" text-anchor="middle">4</text>
+        <text x="90" y="15" text-anchor="middle">5</text>
+        <text x="110" y="15" text-anchor="middle">6</text>
+        
+        <g id="bars">
+            <rect x="0" y="0" width="20" height="0" class="bar" />
+            <rect x="20" y="0" width="20" height="0" class="bar" />
+            <rect x="40" y="0" width="20" height="0" class="bar" />
+            <rect x="60" y="0" width="20" height="0" class="bar" />
+            <rect x="80" y="0" width="20" height="0" class="bar" />
+            <rect x="100" y="0" width="20" height="0" class="bar" />
+        </g>
+    </svg>
+    <script>
+        const rollButton = document.getElementById('rollDice');
+        const diceImage = document.getElementById('diceImage');
+        const bars = document.querySelectorAll('.bar');
+        let counts = [0, 0, 0, 0, 0, 0];
+
+        rollButton.addEventListener('click', () => {
+            let roll = Math.floor(Math.random() * 6) + 1;
+            diceImage.src = `img/dados/${roll}.svg`;
+            counts[roll - 1]++;
+            updateGraph();
+        });
+
+        function updateGraph() {
+            const maxCount = Math.max(...counts);
+            bars.forEach((bar, index) => {
+                let height = (counts[index] / maxCount) * 100;
+                bar.setAttribute('y', -height);
+                bar.setAttribute('height', height);
+            });
+        }
+    </script>
+</body>
+</html>

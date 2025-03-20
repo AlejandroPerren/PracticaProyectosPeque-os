@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        td {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        button {
+            width: 100%;
+            height: 100%;
+            font-size: 1.5rem;
+        }
+        .tapped {
+            background-color: gray;
+            color: white;
+        }
+        #mensaje {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Bingo</h1>
+    <p style="text-align: center;">Número: <span id="numero-mostrado" style="font-size: 2rem;"></span></p>
+    <table>
+        <tr>
+            <td><button onclick="taparNumero(0)"></button></td>
+            <td></td>
+            <td><button onclick="taparNumero(1)"></button></td>
+        </tr>
+        <tr>
+            <td><button onclick="taparNumero(2)"></button></td>
+            <td><button onclick="taparNumero(3)"></button></td>
+            <td></td>
+        </tr>
+    </table>
+    <p id="mensaje"></p>
+    <div style="text-align: center;">
+        <button onclick="nuevoNumero()">Nuevo número</button>
+        <button onclick="reiniciarJuego()">Volver a empezar</button>
+    </div>
+
+    <script>
+        let carton = [];
+        let numerosTapados = [false, false, false, false];
+        let numeroActual = 0;
+
+        function generarCarton() {
+            // Genera un cartón con los números según las reglas
+            carton = [
+                Math.random() < 0.5 ? 1 : 2,
+                Math.random() < 0.5 ? 3 : 4,
+                Math.random() < 0.5 ? 5 : 6,
+                Math.random() < 0.5 ? 7 : 8
+            ];
+            document.querySelectorAll("button").forEach((btn, index) => {
+                if (index < 4) {
+                    btn.textContent = carton[index];
+                    btn.classList.remove("tapped");
+                }
+            });
+        }
+
+        function nuevoNumero() {
+            // Genera un número aleatorio del 1 al 8
+            numeroActual = Math.floor(Math.random() * 8) + 1;
+            document.getElementById("numero-mostrado").textContent = numeroActual;
+            document.getElementById("mensaje").textContent = "";
+        }
+
+        function taparNumero(index) {
+            if (carton[index] === numeroActual && !numerosTapados[index]) {
+                // Marca el número como tapado
+                document.querySelectorAll("button")[index].classList.add("tapped");
+                numerosTapados[index] = true;
+                verificarLinea();
+            }
+        }
+
+        function verificarLinea() {
+            // Verifica si se ha completado una línea
+            if (numerosTapados[0] && numerosTapados[1] || numerosTapados[2] && numerosTapados[3]) {
+                document.getElementById("mensaje").textContent = "¡Línea!";
+            }
+            // Verifica si se ha completado todo el cartón
+            if (numerosTapados.every(tapado => tapado)) {
+                document.getElementById("mensaje").textContent = "¡Bingo!";
+            }
+        }
+
+        function reiniciarJuego() {
+            // Reinicia el cartón y los números tapados
+            numerosTapados = [false, false, false, false];
+            generarCarton();
+            nuevoNumero();
+        }
+
+        // Inicializa el juego al cargar la página
+        window.onload = function() {
+            reiniciarJuego();
+        };
+    </script>
+</body>
+</html>
