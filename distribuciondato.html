@@ -16,7 +16,7 @@
     <h2>Distribución de Dado</h2>
     <p>
         <button id="rollDice">
-            <img id="diceImage" src="img/dados/1.svg" alt="Dado" width="100">
+            <img id="diceImage" src="dados/1.svg" alt="Dado" width="100">
         </button>
     </p>
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +47,7 @@
 
         rollButton.addEventListener('click', () => {
             let roll = Math.floor(Math.random() * 6) + 1;
-            diceImage.src = `img/dados/${roll}.svg`;
+            diceImage.src = `dados/${roll}.svg`;
             counts[roll - 1]++;
             updateGraph();
         });

@@ -13,9 +13,9 @@
 <body>
     <h1>Récord de Cartas</h1>
     <p id="cartas">
-        <img src="img/c1.svg" alt="1" width="140" height="140">
-        <img src="img/c1.svg" alt="1" width="140" height="140">
-        <img src="img/c1.svg" alt="1" width="140" height="140">
+        <img src="cartas/c1.svg" alt="1" width="140" height="140">
+        <img src="cartas/c1.svg" alt="1" width="140" height="140">
+        <img src="cartas/c1.svg" alt="1" width="140" height="140">
     </p>
     <p>Récord: <span id="record">3</span></p>
     <button onclick="sacarDeNuevo()">Sacar de nuevo</button>
@@ -31,9 +31,9 @@
         function sacarDeNuevo() {
             let cartas = [generarCarta(), generarCarta(), generarCarta()];
             document.getElementById("cartas").innerHTML = `
-                <img src="img/c${cartas[0]}.svg" alt="${cartas[0]}" width="140" height="140">
-                <img src="img/c${cartas[1]}.svg" alt="${cartas[1]}" width="140" height="140">
-                <img src="img/c${cartas[2]}.svg" alt="${cartas[2]}" width="140" height="140">
+                <img src="cartas/c${cartas[0]}.svg" alt="${cartas[0]}" width="140" height="140">
+                <img src="cartas/c${cartas[1]}.svg" alt="${cartas[1]}" width="140" height="140">
+                <img src="cartas/c${cartas[2]}.svg" alt="${cartas[2]}" width="140" height="140">
             `;
             let suma = cartas.reduce((a, b) => a + b, 0);
             if (suma > record) {
@@ -44,9 +44,9 @@
 
         function volverAEmpezar() {
             document.getElementById("cartas").innerHTML = `
-                <img src="img/c1.svg" alt="1" width="140" height="140">
-                <img src="img/c1.svg" alt="1" width="140" height="140">
-                <img src="img/c1.svg" alt="1" width="140" height="140">
+                <img src="cartas/c1.svg" alt="1" width="140" height="140">
+                <img src="cartas/c1.svg" alt="1" width="140" height="140">
+                <img src="cartas/c1.svg" alt="1" width="140" height="140">
             `;
             record = 3;
             document.getElementById("record").textContent = record;
